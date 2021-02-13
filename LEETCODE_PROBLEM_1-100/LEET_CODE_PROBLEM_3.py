@@ -31,8 +31,7 @@ Output: 0
 
 """
 import collections
-class Solution(object):
-
+class Solution(object):  # My Solution
     def lengthOfLongestSubstring(self, s):
 
         if len(s) == 0:
@@ -99,7 +98,24 @@ class Solution(object):
             return max([len(a_pattern) for a_pattern in pattern_list])
 
 
+class Best_solution:
+    def lengthOfLongestSubstring(self, s):
+        dicts = {}
+        maxlength = start = 0
+        for i, value in enumerate(s):
+            if value in dicts:
+                sums = dicts[value] + 1
+                if sums > start:
+                    start = sums
+            num = i - start + 1
+            if num > maxlength:
+                maxlength = num
+            dicts[value] = i
+        return maxlength
+
 solver = Solution()
+b_solver = Best_solution()
+print(b_solver.lengthOfLongestSubstring("abcabcf"))
 # print(solver.lengthOfLongestSubstring("abcabcf"))  # abcf
 # print(solver.lengthOfLongestSubstring('dvdf'))  # vdf
 # print(solver.lengthOfLongestSubstring('abcb'))  # abc
