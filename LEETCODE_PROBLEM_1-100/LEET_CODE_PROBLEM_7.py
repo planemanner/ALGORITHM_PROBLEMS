@@ -18,6 +18,7 @@ Input: x = 0
 Output: 0
 
 """
+## 시간을 더 적게 사용
 class Solution(object):
     def reverse(self, x):
         """
@@ -25,13 +26,42 @@ class Solution(object):
         :rtype: int
         """
         if x >= 0:
-            str_x = str(x)
-            out = int(str_x[::-1])
+            out = int(str(x)[::-1])
         else:
-            str_x = str(x)
-            out = int('-' + str_x[:0:-1])
+            out = int('-' + str(x)[:0:-1])
         if out > 2**31-1 or -2 ** 31 > out:
             out = 0
         return out
+
+## 공간 메모리를 더 적게 사용
+class other_solution():
+    def reverse(self, x):
+        q = 1
+        nums = []
+        out = 0
+        if x < 0:
+            x = -x
+            nums.append('-')
+        else:
+            nums.append("")
+        while q != 0:
+            q = x // 10
+            residue = x - q * 10
+            nums.append(residue)
+            x = q
+
+        for idx, num in enumerate(nums[1:]):
+            out += num * 10**((len(nums)-2) - idx)
+
+        if nums[0] == '-':
+            out = -out
+        if out > 2 ** 31 - 1 or -2 ** 31 > out:
+            out = 0
+        return out
+'''
+메모리 량 차이는 string 형태로 변환하여 쓰느냐 아니냐 차이 인거 같은데...?
+'''
 solver = Solution()
-print(solver.reverse(1563847412))
+other_solver = other_solution()
+
+print(other_solver.reverse(-123))
