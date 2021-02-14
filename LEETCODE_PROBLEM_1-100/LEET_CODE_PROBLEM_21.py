@@ -24,6 +24,9 @@ Constraints
 list.next.next.next....이 가능하게.
 
 답 쉽게 볼거면 solution 내에 return 파트의 make_linked_list를 지우면 됨.
+
+Solution에 대한 평가: 평범한 Solution. 중상위 공간 복잡도, 중하위 시간 복잡도.
+
 """
 
 class ListNode(object):
