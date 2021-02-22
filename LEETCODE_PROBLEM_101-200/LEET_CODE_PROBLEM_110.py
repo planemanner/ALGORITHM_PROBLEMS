@@ -1,4 +1,6 @@
 """
+Description:
+
 Given a binary tree, determine if it is height-balanced.
 
 For this problem, a height-balanced binary tree is defined as:
@@ -37,62 +39,21 @@ class TreeNode(object):
         self.left = left
         self.right = right
 
-
+'''Someone's good solution'''
 class Solution(object):
     def isBalanced(self, root):
         """
         :type root: TreeNode
         :rtype: bool
         """
-        if not root:
+        return bool(self.check(root))
+
+
+    def check(self, node):
+        if not node:
             return True
-        self.l_height = 0
-        self.r_height = 0
-        "TreeNode{val: 1, left: None, right: TreeNode{val: 2, left: None, right: TreeNode{val: 3, left: None, right: None}}}"
-        if root.left:
-            self.l_height += 1
-            self.Preorder_left(root.left)
-        if root.right:
-            self.r_height += 1
-            self.Preorder_right(root.right)
-
-        print(self.l_height)
-        print(self.r_height)
-
-        if abs(self.l_height - self.r_height) > 1:
-            return False
-        else:
-            return True
-
-    def Preorder_left(self, _root):
-
-        if not _root:
-            return
-        else:
-            if _root.left or _root.right:
-                self.l_height += 1
-                if _root.left:
-                    self.Preorder_left(_root.left)
-                if _root.right:
-                    self.Preorder_left(_root.right)
-
-
-    def Preorder_right(self, _root):
-        if not _root:
-            return
-        else:
-            if _root.left or _root.right:
-                self.r_height += 1
-                if _root.left:
-
-                    self.Preorder_right(_root.left)
-                if _root.right:
-
-                    self.Preorder_right(_root.right)
-
-
-"TreeNode{val: 1, left: None, right: TreeNode{val: 2, left: None, right: TreeNode{val: 3, left: None, right: None}}}"
-
+        l, r = self.check(node.left), self.check(node.right)
+        return max(l, r) + 1 if l and r and abs(l - r) < 2 else False
 
 '''Example.1 : 3,9,20,null,null,15,7'''
 root = TreeNode(3)
@@ -102,8 +63,14 @@ root.left.left = None
 root.left.right = None
 root.right.left = TreeNode(15)
 root.right.right = TreeNode(7)
+"""
+Example.2 : 1,2,2,3,3,null,null,4,4
+           1
+       2       2
+    3     3  N    N
+4     4
+"""
 
-'''Example.2 : 1,2,2,3,3,null,null,4,4'''
 root_1 = TreeNode(val=1)
 root_1.left = TreeNode(val=2)
 root_1.right = TreeNode(val=2)
@@ -133,13 +100,22 @@ Example.4) [1,2,2,3,null,null,3,4,null,null,4]
 TreeNode{val: 1, left: TreeNode{val: 2, left: TreeNode{val: 3, left: TreeNode{val: 4, left: None, right: None}, right: None}, right: None}, 
     right: TreeNode{val: 2, left: None, right: TreeNode{val: 3, left: None, right: TreeNode{val: 4, left: None, right: None}}}}
                         1
-                    2        2
+                   2         2
                 3     N     N   3      
-            4     N       N       4
+            4     N            N   4
 """
+root_3 = TreeNode(val=1)
+root_3.left = TreeNode(val=2)
+root_3.right = TreeNode(val=2)
+root_3.left.left = TreeNode(val=3)
+root_3.right.right = TreeNode(val=3)
+root_3.left.left.left = TreeNode(val=4)
+root_3.right.right.right = TreeNode(val=4)
+
 solver = Solution()
-# print(solver.isBalanced(root_1))
-print(solver.isBalanced(root))
+print(solver.isBalanced(root_1))
+# print(solver.isBalanced(root))
+# print(solver.isBalanced(root_3))
 # print(solver.isBalanced(root_2))
 # print(solver.isBalanced(TreeNode(None)))
 
